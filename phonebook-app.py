@@ -9,19 +9,19 @@ from flaskext.mysql import MySQL
 app = Flask(__name__)
 
 # The hardest part of this project is to get endpoint of RDS instances. Since our RDS is created within cloudformation template, we need to get RDS endpoint and paste it here as environmental variable using Launch templates user data.
-db_endpoint = open(
-    "/home/ec2-user/terraform-alb-asg-app/dbserver.endpoint", 'r', encoding='UTF-8')
+#db_endpoint = open(
+ #   "/home/ec2-user/terraform-alb-asg-app/dbserver.endpoint", 'r', encoding='UTF-8')
 
 # Configure mysql database
 
 # Once we are done with the database, we are going to create database.
 # we need to configure our database. I've explained this part before. Lets have a look at these configuration.
-app.config['MYSQL_DATABASE_HOST'] = db_endpoint.readline().strip()
+app.config['MYSQL_DATABASE_HOST'] = 'phonebook-app-db.cksrl0ultens.ap-south-1.rds.amazonaws.com'
 app.config['MYSQL_DATABASE_USER'] = 'admin'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'Devenes_123'
 app.config['MYSQL_DATABASE_DB'] = 'phonebook'
 app.config['MYSQL_DATABASE_PORT'] = 3306
-db_endpoint.close()
+#db_endpoint.close()
 mysql = MySQL()  # We are using this function to initialize mysql
 mysql.init_app(app)
 connection = mysql.connect()
